@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Users;
+import com.example.demo.model.Role;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -53,9 +54,11 @@ public class UserService {
         return null; // В случае неуспешной аутентификации
     }
 
-    // Метод для регистрации пользователя
-    public void registerUser(String name, String email, String password) {
-        Users newUser = new Users(name, email, password); // Теперь работает, так как есть нужный конструктор
+    public void registerUser(String name, String email, String password, String phone, Role role) {
+        Users newUser = new Users(name, email, password, phone, role);
         saveUser(newUser);
+        // Сохраните пользователя в базе данных
     }
+
+
 }
