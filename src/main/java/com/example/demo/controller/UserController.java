@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.Users;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,9 +31,14 @@ public class UserController {
     public Users getUserByEmail(@PathVariable String email) {
         return userService.getUserByEmail(email);
     }
+
     @GetMapping("/{id}")
-    public Users getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public ResponseEntity<Users> getUserById(@PathVariable Long id) {
+        Users user = userService.getUserById(id);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(user);
     }
 
 
