@@ -1,25 +1,28 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-import java.math.BigDecimal;
-import java.time.Duration;
-import java.time.LocalDateTime;
-
+import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
-public class WorkHourse {
+public class WorkHours {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime Date;
+    private LocalDate workDate; // Дата рабочего дня
+    private LocalTime startTime; // Время начала рабочего дня
+    private LocalTime endTime;   // Время окончания рабочего дня
 
+    // Связь с мастером
+    @ManyToOne
+    @JoinColumn(name = "master_id", nullable = false)
+    private Master master;
 
+    @ManyToOne
+    @JoinColumn(name = "month_id", nullable = false) // Связываем с таблицей "Month"
+    private Month month;
 
     // Геттеры и сеттеры
     public Long getId() {
@@ -30,12 +33,44 @@ public class WorkHourse {
         this.id = id;
     }
 
-    public LocalDateTime getWorkHourse() {
-        return Date;
+    public LocalDate getWorkDate() {
+        return workDate;
     }
 
-    public void setWorkHourse(LocalDateTime WorkHourse) {
-        this.Date = WorkHourse;
+    public void setWorkDate(LocalDate workDate) {
+        this.workDate = workDate;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public Master getMaster() {
+        return master;
+    }
+
+    public void setMaster(Master master) {
+        this.master = master;
+    }
+
+    public Month getMonth() {
+        return month;
+    }
+
+    public void setMonth(Month month) {
+        this.month = month;
     }
 
 }

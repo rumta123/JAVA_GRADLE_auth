@@ -1,4 +1,8 @@
 package com.example.demo.repository;
 
-public class QualificationRepository {
+import com.example.demo.model.Qualification;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface QualificationRepository extends JpaRepository<Qualification, Long> {
+    // Дополнительные методы поиска можно добавить при необходимости
 }
